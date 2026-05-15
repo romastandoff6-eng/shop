@@ -1,0 +1,62 @@
+.navbar-main {
+    position: fixed;
+    width: 100%;
+    background-color: transparent;
+    z-index: 1000;
+}
+
+/* текст білий */
+.navbar-main .navbar-brand,
+.navbar-main .nav-link {
+    color: #fff;
+}
+
+/* hover */
+.navbar-main .nav-link.active,
+.navbar-main .nav-link:hover {
+    color: #7360f2;
+}
+
+/* бургер */
+.navbar-main .navbar-toggler-icon {
+    filter: invert(1);
+}
+
+
+.navbar-main {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+/* стан при скролі */
+.navbar-scrolled {
+    background: rgba(255, 255, 255, 0.85);
+    /* зробив трохи більш видимим */
+    backdrop-filter: blur(10px);
+}
+
+/* 👉 міняємо кольори тексту */
+.navbar-scrolled .nav-link,
+.navbar-scrolled .navbar-brand {
+    color: #000 !important;
+}
+
+/* кнопка телефону */
+.navbar-scrolled .btn-light {
+    background: #f1f1f1;
+    color: #000;
+}
+
+/* кнопка "Є питання?" */
+.navbar-scrolled .btn-primary {
+    background: #0d6efd;
+    color: #fff;
+}
+
+/* ховання */
+.navbar-hidden {
+    transform: translateY(-100%);
+}
