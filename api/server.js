@@ -1,28 +1,41 @@
 const express = require("express");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
 const app = express();
 
 app.use(express.json());
 
+// подключение к MongoDB
+mongoose.connect(process.env.MONGO_URL)
+    .then(() => console.log("MongoDB connected"))
+    .catch((err) => console.log("DB error:", err));
+
+// тестовый роут
 app.get("/", (req, res) => {
-    res.send("API работает");
+    res.send("API + MongoDB работает");
 });
 
-app.get("/users", (req, res) => {
-    res.json([
-        { id: 1, name: "Roman" },
-        { id: 2, name: "Alex" }
-    ]);
+// пример схемы
+const UserSchema = new mongoose.Schema({
+    name: String,
+    age: Number,
 });
 
-app.post("/users", (req, res) => {
-    console.log(req.body);
+const User = mongoose.model("User", UserSchema);
 
-    res.json({
-        message: "Пользователь создан"
-    });
+// создать пользователя
+app.post("/users", async (req, res) => {
+    const user = await User.create(req.body);
+    res.json(user);
 });
 
-app.listen(3000, () => {
-    console.log("Server started on port 3000");
+// получить пользователей
+app.get("/users", async (req, res) => {
+    const users = await User.find();
+    res.json(users);
+});
+
+app.listen(process.env.PORT, () => {
+    console.log("Server started on port " + process.env.PORT);
 });
